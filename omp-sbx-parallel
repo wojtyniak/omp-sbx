@@ -73,6 +73,8 @@ if [ ${#OMP_ARGS[@]} -gt 0 ]; then set -- "${OMP_ARGS[@]}"; else set --; fi
 # ── Preflight ────────────────────────────────────────────────────────────────
 # shellcheck source=sbx-preflight.sh
 source "$REPO_DIR/sbx-preflight.sh"
+# shellcheck source=sbx-common.sh
+source "$REPO_DIR/sbx-common.sh"
 ensure_sbx "omp-sbx-parallel"
 # Source .env if present (gitignored — copy from .env.example).
 # Exports MORPH_API_KEY etc. so sbx can substitute ${MORPH_API_KEY} in spec.yaml.
@@ -281,7 +283,7 @@ remove_worktree_from_workspace() {
 add_worktree_to_workspace "$BRANCH" "$WORKTREE_PATH"
 
 # ── Sandbox name (unique per worktree) ───────────────────────────────────────
-SANDBOX_NAME="omp-$(echo "${REPO_BASE}-${BRANCH}" | tr '_' '-' | tr -cd '[:alnum:]_-')"
+SANDBOX_NAME="$(sandbox_name_for "$WORKTREE_PATH" "$BRANCH")"
 
 # ── Banner ───────────────────────────────────────────────────────────────────
 log ""

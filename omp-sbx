@@ -53,6 +53,8 @@ if [ ${#OMP_ARGS[@]} -gt 0 ]; then set -- "${OMP_ARGS[@]}"; else set --; fi
 # ── Preflight ────────────────────────────────────────────────────────────────
 # shellcheck source=sbx-preflight.sh
 source "$REPO_DIR/sbx-preflight.sh"
+# shellcheck source=sbx-common.sh
+source "$REPO_DIR/sbx-common.sh"
 ensure_sbx "omp-sbx"
 # Source .env if present (gitignored — copy from .env.example).
 # Exports MORPH_API_KEY etc. for use below.
@@ -80,8 +82,8 @@ if [ -d "$HOME/.config/gh" ]; then
 fi
 
 # ── Sandbox name (per-directory) ─────────────────────────────────────────────
-WORKDIR="$(pwd)"
-SANDBOX_NAME="omp-$(basename "$WORKDIR" | tr '_' '-' | tr -cd '[:alnum:]_-')"
+WORKDIR="$(pwd -P)"
+SANDBOX_NAME="$(sandbox_name_for "$WORKDIR")"
 
 # ── Check if sandbox already exists ──────────────────────────────────────────
 sandbox_exists() {
