@@ -126,3 +126,8 @@ WORKDIR /home/agent
 # Override the base image's flavor label so sbx recognizes this template as
 # built for the "omp" agent (suppresses the "built for shell agent" warning).
 LABEL com.docker.sandboxes.flavor="omp"
+
+# Records the omp version baked into this image so tooling (e.g. the
+# omp-sbx update-check wrapper) can read it back with `docker inspect`
+# without re-running the binary.
+LABEL sh.omp.version="${OMP_VERSION}"
