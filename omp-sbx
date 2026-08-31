@@ -65,6 +65,7 @@ fi
 # this is the reliable way to pass MORPH_API_KEY through.
 SBX_ENV_ARGS=()
 [ -n "${MORPH_API_KEY:-}" ] && SBX_ENV_ARGS+=(-e MORPH_API_KEY)
+[ -n "${LITELLM_BASE_URL:-}" ] && SBX_ENV_ARGS+=(-e LITELLM_BASE_URL)
 
 if [ ! -d "$HOME/.omp" ]; then
   log "${C_RED}omp-sbx: host config dir not found: $HOME/.omp${C_RST}"

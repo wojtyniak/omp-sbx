@@ -66,6 +66,8 @@ permissions:
       - "files.pythonhosted.org:443"
       # Local model servers (host.docker.internal resolves to host)
       - "host.docker.internal:*"
+      # LiteLLM proxy (self-hosted model gateway — see LITELLM_BASE_URL forwarding in omp-sbx)
+      - "docks.srv.0x89.net:4000"
       # AI/doc context
       - "*.context7.com:443"
       - "code.visualstudio.com:443"
